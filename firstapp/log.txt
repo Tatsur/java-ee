@@ -1,0 +1,4 @@
+19:11:21,769 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 84) WFLYUT0021: Registered web context: '/firstapp' for server 'default-server'
+19:11:21,815 INFO  [org.jboss.as.server] (management-handler-thread - 2) WFLYSRV0010: Deployed "firstapp.war" (runtime-name : "firstapp.war")
+19:11:53,173 INFO  [ru.geekbrains.MyServlet] (default task-1) MyServlet is initialized
+19:11:53,174 INFO  [ru.geekbrains.MyServlet] (default task-1) Got request to MyServlet
