@@ -14,5 +14,6 @@ public class MainServlet extends HttpServlet {
         req.setAttribute("pageHeader","Главная страница");
         getServletContext().getRequestDispatcher("/page_header").include(req,resp);
         getServletContext().getRequestDispatcher("/list-servlet").include(req,resp);
+        getServletContext().getRequestDispatcher("/product").forward(req,resp);
     }
 }
