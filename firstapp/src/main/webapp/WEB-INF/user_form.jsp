@@ -37,50 +37,27 @@
 <div class="container">
     <div class="row py-2">
         <div class="col-12">
-            <c:url value="/product/add" var="productAddUrl"/>
-            <a class="btn btn-primary" href="${productAddUrl}">Add Product</a>
-        </div>
-
-        <div class="col-12">
-            <table class="table table-bordered my-2">
-                <thead>
-                <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach var="product" items="${requestScope.products}">
-                    <tr>
-                        <th scope="row">
-                            <c:out value="${product.id}"/>
-                        </th>
-                        <td>
-                            <c:out value="${product.name}"/>
-                        </td>
-                        <td>
-                            <c:out value="${product.description}"/>
-                        </td>
-                        <td>$
-                            <c:out value="${product.price}"/>
-                        </td>
-                        <td>
-                            <c:url value="/product/edit" var="productEditUrl">
-                                <c:param name="id" value="${product.id}"/>
-                            </c:url>
-                            <a class="btn btn-success" href="${productEditUrl}"><i class="fas fa-edit"></i></a>
-                            <c:url value="/product/delete" var="productDeleteUrl">
-                                <c:param name="id" value="${product.id}"/>
-                            </c:url>
-                            <a class="btn btn-danger" href="${productDeleteUrl}"><i class="far fa-trash-alt"></i></a>
-                        </td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
+            <c:url value="/user" var="userSubmitUrl"/>
+            <form action="${userSubmitUrl}" method="post">
+                <input type="hidden" id="id" name="id" value="${user.id}">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" class="form-control" id="email" name="email" value="${user.email}" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" id="password" name="password" value="${user.password}" placeholder="Enter password">
+                </div>
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName" value="${user.firstName}" placeholder="Enter first name">
+                </div>
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" class="form-control" id="lastName" name="lastName" value="${user.lastName}" placeholder="Enter last name">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
         </div>
     </div>
 </div>
@@ -96,5 +73,5 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+
 </body>
-</html>

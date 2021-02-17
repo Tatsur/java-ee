@@ -1,5 +1,7 @@
 package ru.geekbrains.persist;
 
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +27,5 @@ public class ProductRepo {
         }
         productMap.put(product.getId(),product);
     }
-
     public void deleteById(Long id){productMap.remove(id);};
 }

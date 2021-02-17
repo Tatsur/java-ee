@@ -32,31 +32,43 @@ public class ProductServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info(req.getPathInfo());
         req.setAttribute("pageHeader","Товар");
-        getServletContext().getRequestDispatcher("/page_header").include(req,resp);
-        getServletContext().getRequestDispatcher("/list-servlet").include(req,resp);
+        //getServletContext().getRequestDispatcher("/page_header").include(req,resp);
+        //getServletContext().getRequestDispatcher("/list-servlet").include(req,resp);
         if(req.getPathInfo() == null || req.getPathInfo().equals("/")){
             req.setAttribute("products",productRepo.findAll());
             getServletContext().getRequestDispatcher("/WEB-INF/product.jsp").forward(req,resp);
         }else if (req.getPathInfo().equals("/edit")){
-            long id;
-            try{
-                id = Long.parseLong(req.getParameter("id"));
-            }catch (NumberFormatException e){
-                resp.setStatus(400);
-                return;
-            }
-            Product product = productRepo.findById(id);
-            if(product == null){
-                resp.setStatus(404);
-                return;
-            }
-            req.setAttribute("product",product);
+            req.setAttribute("product",getProduct(req,resp));
             getServletContext().getRequestDispatcher("/WEB-INF/product_form.jsp").forward(req,resp);
         }else if(req.getPathInfo().equals("/delete")){
-            //TODO delete product
-        }
-    }
+            productRepo.deleteById(getProduct(req,resp).getId());
+            req.setAttribute("products",productRepo.findAll());
+            String str = String.format("%s%s",getServletContext().getContextPath(),"/product");
+            logger.info(str);
+            resp.sendRedirect(getServletContext().getContextPath() + "/product");
 
+        }else if(req.getPathInfo().equals("/add")){
+            Product product = new Product();
+            productRepo.saveOrUpdate(product);
+            req.setAttribute("product", product);
+            getServletContext().getRequestDispatcher("/WEB-INF/product_form.jsp").forward(req,resp);
+        }else  getServletContext().getRequestDispatcher("/WEB-INF/product.jsp").forward(req,resp);
+    }
+    private Product getProduct(HttpServletRequest req, HttpServletResponse resp){
+        long id;
+        try{
+            id = Long.parseLong(req.getParameter("id"));
+        }catch (NumberFormatException e){
+            resp.setStatus(400);
+            return null;
+        }
+        Product product = productRepo.findById(id);
+        if(product == null){
+            resp.setStatus(404);
+            return null;
+        }
+        return product;
+    }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long id;
