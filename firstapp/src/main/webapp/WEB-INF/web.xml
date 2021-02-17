@@ -14,10 +14,7 @@
         <servlet-name>MyServlet</servlet-name>
         <url-pattern>/my-servlet</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>/*</url-pattern>
-    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>*.html</url-pattern>
@@ -32,5 +29,9 @@
     <error-page>
         <error-code>403</error-code>
         <location>/403</location>
+    </error-page>
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/exception_page</location>
     </error-page>
 </web-app>
