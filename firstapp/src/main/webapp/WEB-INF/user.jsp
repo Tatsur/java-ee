@@ -40,7 +40,6 @@
             <c:url value="/user/add" var="userAddUrl"/>
             <a class="btn btn-primary" href="${userAddUrl}">Add User</a>
         </div>
-
         <div class="col-12">
             <table class="table table-bordered my-2">
                 <thead>

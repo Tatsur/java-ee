@@ -47,16 +47,14 @@ public class UserServlet extends HttpServlet {
             resp.sendRedirect(getServletContext().getContextPath() + "/user");
 
         }else if(req.getPathInfo().equals("/add")){
-            User user = new User();
-            userRepo.saveOrUpdate(user);
-            req.setAttribute("user", user);
+            req.setAttribute("user", new User());
             getServletContext().getRequestDispatcher("/WEB-INF/user_form.jsp").forward(req,resp);
         }else  getServletContext().getRequestDispatcher("/WEB-INF/user.jsp").forward(req,resp);
     }
     private User getUser(HttpServletRequest req, HttpServletResponse resp){
         long id;
         try{
-            id = Long.parseLong(req.getParameter("id"));
+                id = Long.parseLong(req.getParameter("id"));
         }catch (NumberFormatException e){
             resp.setStatus(400);
             return null;
@@ -70,9 +68,12 @@ public class UserServlet extends HttpServlet {
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        long id;
+        Long id = null;
         try {
-            id = Long.parseLong(req.getParameter("id"));
+            String idParam = req.getParameter("id");
+            if(idParam != null && !idParam.isBlank()) {
+                id = Long.parseLong(idParam);
+            }
         }catch (NumberFormatException e){
             resp.setStatus(400);
             return;

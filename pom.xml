@@ -16,5 +16,6 @@
 
     <modules>
         <module>firstapp</module>
+        <module>first-jsf-app</module>
     </modules>
 </project>

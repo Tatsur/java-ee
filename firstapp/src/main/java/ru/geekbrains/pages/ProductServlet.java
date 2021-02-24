@@ -48,9 +48,7 @@ public class ProductServlet extends HttpServlet {
             resp.sendRedirect(getServletContext().getContextPath() + "/product");
 
         }else if(req.getPathInfo().equals("/add")){
-            Product product = new Product();
-            productRepo.saveOrUpdate(product);
-            req.setAttribute("product", product);
+            req.setAttribute("product", new Product());
             getServletContext().getRequestDispatcher("/WEB-INF/product_form.jsp").forward(req,resp);
         }else  getServletContext().getRequestDispatcher("/WEB-INF/product.jsp").forward(req,resp);
     }
@@ -71,9 +69,12 @@ public class ProductServlet extends HttpServlet {
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        long id;
+        Long id = null;
         try {
-            id = Long.parseLong(req.getParameter("id"));
+            String idParam = req.getParameter("id");
+            if(idParam != null && !idParam.isBlank()) {
+                id = Long.parseLong(idParam);
+            }
         }catch (NumberFormatException e){
             resp.setStatus(400);
             return;
