@@ -12,7 +12,21 @@ public class Product {
 
     private BigDecimal price;
 
+    public Long getCartKey() {
+        return cartKey;
+    }
+
+    public void setCartKey(Long cartKey) {
+        this.cartKey = cartKey;
+    }
+
+    private Long cartKey;
+
     public Product() {
+    }
+
+    public Product(Product product) {
+        this(product.id,product.name,product.description,product.price);
     }
 
     public Product(Long id, String name, String description, BigDecimal price) {
