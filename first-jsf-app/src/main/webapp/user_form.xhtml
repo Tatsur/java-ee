@@ -1,0 +1,55 @@
+<html lang="en"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <ui:include src="header.xhtml"><ui:param name="title" value="User form"/></ui:include>
+</h:head>
+
+<h:body>
+
+    <ui:include src="navigation.xhtml"/>
+
+    <div class="container position-absolute">
+        <div class="row py-2">
+            <div class="col-12">
+                <h:form>
+                    <input type="hidden" id="id" name="id"/>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <h:inputText styleClass="form-control" id="email"
+                                     value="#{userController.user.email}"
+                                     placeholder="Enter name"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <h:inputSecret styleClass="form-control" id="password"
+                                     value="#{userController.user.password}"
+                                     placeholder="Enter description"/>
+                    </div>
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <h:inputText styleClass="form-control" id="firstname"
+                                       value="#{userController.user.firstname}"
+                                       placeholder="Enter description"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <h:inputText styleClass="form-control" id="lastname"
+                                       value="#{userController.user.lastname}"
+                                       placeholder="Enter description"/>
+                    </div>
+                    <h:commandButton value="Submit" styleClass="btn btn-primary"
+                                     action="#{userController.saveUser()}"/>
+                </h:form>
+            </div>
+        </div>
+    </div>
+
+    <ui:include src="js.xhtml"/>
+
+</h:body>
+
+</html>

@@ -5,7 +5,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
-    <ui:include src="header.xhtml"><ui:param name="title" value="Product form"/></ui:include>
+    <ui:include src="header.xhtml"><ui:param name="title" value="Category form"/></ui:include>
 </h:head>
 
 <h:body>
@@ -18,25 +18,25 @@
                 <h:form>
                     <input type="hidden" id="id" name="id"/>
                     <div class="form-group">
-                        <label>Name</label>
+                        <label>Category Name</label>
                         <h:inputText styleClass="form-control" id="name"
-                                     value="#{productController.product.name}"
-                                     placeholder="Enter name"/>
+                                     value="#{categoryController.category.name}"
+                                     placeholder="Enter category name"/>
                     </div>
                     <div class="form-group">
                         <label>Description</label>
                         <h:inputText styleClass="form-control" id="description"
-                                     value="#{productController.product.description}"
+                                     value="#{categoryController.category.description}"
                                      placeholder="Enter description"/>
                     </div>
                     <div class="form-group">
-                        <label>Price</label>
-                        <h:inputText p:type="number" styleClass="form-control" id="price"
-                                     value="#{productController.product.price}"
-                                     placeholder="Enter price"/>
+                        <label>Parent Id</label>
+                        <h:inputText styleClass="form-control" id="parent"
+                                     value="#{categoryController.category.parent}"
+                                     placeholder="Enter parent id"/>
                     </div>
                     <h:commandButton value="Submit" styleClass="btn btn-primary"
-                                     action="#{productController.saveProduct()}"/>
+                                     action="#{categoryController.saveCategory()}"/>
                 </h:form>
             </div>
         </div>
