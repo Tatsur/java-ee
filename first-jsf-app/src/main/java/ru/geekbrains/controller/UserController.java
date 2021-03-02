@@ -28,7 +28,7 @@ public class UserController implements Serializable {
 
     public String createUser() {
         this.user = new User();
-        return "/user_form.xhtml?faces-redirect-true";
+        return "/user_form.xhtml?faces-redirect=true";
     }
 
     public List<User> getAllUsers() {
@@ -37,7 +37,7 @@ public class UserController implements Serializable {
 
     public String editUser(User user) {
         this.user = user;
-        return "/user_form.xhtml?faces-redirect-true";
+        return "/user_form.xhtml?faces-redirect=true";
     }
 
     public void deleteUser(User user) {
@@ -46,6 +46,6 @@ public class UserController implements Serializable {
 
     public String saveUser() {
         userRepository.saveOrUpdate(user);
-        return "/user.xhtml?faces-redirect-true";
+        return "/user.xhtml?faces-redirect=true";
     }
 }

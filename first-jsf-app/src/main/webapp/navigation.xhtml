@@ -1,22 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<html lang="en"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 <ui:composition>
     <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center">
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link" href="#{request.contextPath}/product.xhtml">Products</a>
+                <h:link class="nav-link" value="Product" outcome="product"/>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#{request.contextPath}/cart.xhtml">Cart</a>
+                <h:link class="nav-link" value="Cart" outcome="cart"/>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#{request.contextPath}/user.xhtml">Users</a>
+                <h:link class="nav-link" value="User" outcome="user"/>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#{request.contextPath}/category.xhtml">Categories</a>
+                <h:link class="nav-link" value="Category" outcome="category"/>
             </li>
         </ul>
     </nav>
