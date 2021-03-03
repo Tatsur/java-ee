@@ -32,7 +32,7 @@ public class CategoryController implements Serializable {
     }
 
     public List<Category> getAllCategories() {
-        return categoryRepository.findAll();
+        return categoryRepository.findAllCategories();
     }
 
     public String editCategory(Category category) {
@@ -41,7 +41,7 @@ public class CategoryController implements Serializable {
     }
 
     public void deleteCategory(Category category) {
-        categoryRepository.deleteById(category.getId());
+        categoryRepository.deleteCategoryById(category.getId());
     }
 
     public String saveCategory() {
