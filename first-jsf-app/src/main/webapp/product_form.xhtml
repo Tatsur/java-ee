@@ -31,10 +31,9 @@
                     </div>
                     <div class="form-group">
                         <label>Category</label>
-                        <h:selectOneMenu value="#{productController.product.category}">
-<!--                           Работает только с itemValue=null, при других значениях категории отправки не происходит. Как это можно исправить? -->
-                            <f:selectItems value="#{categoryController.allCategories}" var="category" itemValue="#{category}" itemLabel="#{category.name}"/>
-                            <f:selectItem itemLabel="#{productController.product.category.name}" itemValue="#{productController.product.category}" />
+                        <h:selectOneMenu value="#{productController.categoryId}">
+                            <f:selectItems value="#{categoryController.allCategories}" var="category" itemValue="#{category.id}" itemLabel="#{category.name}"/>
+                            <f:selectItem itemLabel="#{productController.product.category.name}" itemValue="#{productController.product.category.id}" />
                             <f:selectItem itemLabel="none" itemValue="#{null}" />
                         </h:selectOneMenu>
                     </div>
@@ -45,7 +44,7 @@
                                      placeholder="Enter price"/>
                     </div>
                     <h:commandButton value="Submit" styleClass="btn btn-primary"
-                                     action="#{productController.saveProduct()}"/>
+                                     action="#{productController.saveProduct(productController.categoryId)}"/>
                 </h:form>
             </div>
         </div>

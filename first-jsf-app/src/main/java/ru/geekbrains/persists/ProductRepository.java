@@ -58,6 +58,10 @@ public class ProductRepository {
         return em.createNamedQuery("findAllCategories",Category.class).getResultList();
     }
 
+    public Category findCategoryById(Long id) {
+        return em.find(Category.class, id);
+    }
+
     public Product findById(Long id) {
         return em.find(Product.class,id);
     }
