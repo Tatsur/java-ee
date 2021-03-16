@@ -1,4 +1,4 @@
-package ru.geekbrains.persists;
+package ru.geekbrains.persist;
 
 public class User {
     private Long id;

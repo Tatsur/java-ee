@@ -1,4 +1,6 @@
-package ru.geekbrains.persists;
+package ru.geekbrains.persist;
+
+import ru.geekbrains.service.CategoryRepr;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -6,12 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table (name = "categories")
+@Table(name = "categories")
 @NamedQueries({
-        @NamedQuery(name="findAllCategories",query = "from Category "),
-        @NamedQuery(name = "countAllCategories",query = "select count(*) from Category "),
-        @NamedQuery(name = "deleteCategoryById",query = "delete from Category c where c.id = :id" )
-        ,@NamedQuery(name = "findCategoryById",query = "from Category c where c.id=:id")
+        @NamedQuery(name = "findAllCategories", query = "from Category "),
+        @NamedQuery(name = "countAllCategories", query = "select count(*) from Category "),
+        @NamedQuery(name = "deleteCategoryById", query = "delete from Category c where c.id =:id"),
+        @NamedQuery(name = "findCategoryById", query = "from Category c where c.id=:id")
 
 })
 public class Category implements Serializable {
@@ -24,8 +26,8 @@ public class Category implements Serializable {
     @Column
     private String description;
 
-    @OneToMany (cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "category")
+//    @JoinColumn
     private List<Product> products = new ArrayList<>();
 
     @Column
@@ -40,6 +42,10 @@ public class Category implements Serializable {
 
     public Category() {
 
+    }
+
+    public Category(CategoryRepr category) {
+        this(category.getId(),category.getName(),category.getDescription(),category.getParent());
     }
 
     public Long getId() {

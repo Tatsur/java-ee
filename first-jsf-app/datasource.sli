@@ -2,10 +2,10 @@
 data-source add \
    --jndi-name=java:/jboss/datasources/MySQLDS \
    --name=MySQLDS \
-   --connection-url=jdbc:mysql://localhost:3306/javaee_product_base?createDatabaseIfNotExist=true&characterEncoding=UTF-8&serverTimezone=UTC \
+   --connection-url=jdbc:mysql://localhost:3306/javaee_product_database?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC \
    --driver-name=mysql \
    --user-name=root \
-   --password=root
+   --password=MSQLM3Tailbynbyn
 
 # 2. restarting Wildfly server
 :reload

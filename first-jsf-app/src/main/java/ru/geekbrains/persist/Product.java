@@ -1,4 +1,6 @@
-package ru.geekbrains.persists;
+package ru.geekbrains.persist;
+
+import ru.geekbrains.service.ProductRepr;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -24,7 +26,7 @@ public class Product implements Serializable {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
+//    @JoinColumn(name = "category_id")
     private Category category;
 
     @Column
@@ -51,6 +53,10 @@ public class Product implements Serializable {
         this(product.id,product.name,product.description,product.category,product.price);
     }
 
+    public Product(ProductRepr productRepr, Category category){
+        this(productRepr.getId(),productRepr.getName(),productRepr.getDescription(),productRepr.getPrice());
+        this.category = category;
+    }
     public Product(Long id, String name, String description, BigDecimal price) {
         this.id = id;
         this.name = name;
