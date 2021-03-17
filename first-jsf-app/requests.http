@@ -1,10 +1,20 @@
+### all products
+
 GET http://localhost:8080/first-jsf-app/api/v1/product/
 
-###
+### product by id
 
 GET http://localhost:8080/first-jsf-app/api/v1/product/133
 
-###
+### product by category id
+
+GET http://localhost:8080/first-jsf-app/api/v1/product/category_40
+
+### product by name
+
+GET http://localhost:8080/first-jsf-app/api/v1/product/Some%20shoes
+
+### add product
 
 POST http://localhost:8080/first-jsf-app/api/v1/product/
 Content-Type: application/json
@@ -17,7 +27,7 @@ Content-Type: application/json
   "price": 100.00
 }
 
-###
+### update product
 
 PUT http://localhost:8080/first-jsf-app/api/v1/product/
 Content-Type: application/json
@@ -26,7 +36,7 @@ Content-Type: application/json
   "id": 133,
   "categoryId": 3,
   "categoryName": "Category 1",
-  "description": "Product from REST 2",
-  "name": "Product from REST 2",
+  "description": "Product from REST 5",
+  "name": "Product from REST 5",
   "price": 150.00
 }

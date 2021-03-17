@@ -1,6 +1,7 @@
 package ru.geekbrains.service;
 
 
+import javax.ejb.Remote;
 import javax.ejb.Stateful;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,7 +10,8 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Stateful
-public class CartServiceImpl implements CartService {
+@Remote(CartServiceRemote.class)
+public class CartServiceImpl implements CartService, CartServiceRemote {
 
     private final Map<Long, ProductRepr> productMap = new HashMap<>();
     private final AtomicLong atomicLong = new AtomicLong(0);
