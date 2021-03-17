@@ -8,7 +8,7 @@
 </h:head>
 
 <h:body>
-
+    <f:event listener="#{categoryController.preloadData}" type="preRenderView"/>
     <ui:include src="navigation.xhtml"/>
 
     <div class="container">
@@ -20,7 +20,7 @@
                 </div>
 
                 <div class="col-12">
-                    <h:dataTable value="#{categoryController.allCategories}" var="category"
+                    <h:dataTable value="#{categoryController.categories}" var="category"
                                  styleClass="table table-bordered my-2">
                         <h:column>
                             <f:facet name="header">Id</f:facet>

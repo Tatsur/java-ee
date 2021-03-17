@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Stateless
 @Remote(ProductServiceRemote.class)
-public class ProductServiceImpl implements ProductService,ProductServiceRemote{
+public class ProductServiceImpl implements ProductService,ProductServiceRemote {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
@@ -26,12 +26,7 @@ public class ProductServiceImpl implements ProductService,ProductServiceRemote{
     @EJB
     private CategoryRepository categoryRepository;
 
-    @Override
-    public List<ProductRepr> findAll() {
-        return productRepository.findAll().stream()
-                .map(this::buildProductRepr)
-                .collect(Collectors.toList());
-    }
+
 
     private ProductRepr buildProductRepr(Product product) {
         ProductRepr repr = new ProductRepr();
@@ -46,6 +41,14 @@ public class ProductServiceImpl implements ProductService,ProductServiceRemote{
 
         return repr;
     }
+
+    @Override
+    public List<ProductRepr> findAll() {
+        return productRepository.findAll().stream()
+                .map(this::buildProductRepr)
+                .collect(Collectors.toList());
+    }
+
     @Override
     public ProductRepr findById(Long id) {
         Product product = productRepository.findById(id);
@@ -59,21 +62,7 @@ public class ProductServiceImpl implements ProductService,ProductServiceRemote{
         return productRepository.countAll();
     }
 
-//    @Override
-    public void insert(ProductRepr product) {
-        if (product.getId() != null) {
-            throw new IllegalArgumentException();
-        }
-        saveOrUpdate(product);
-    }
 
-//    @Override
-    public void update(ProductRepr product) {
-        if (product.getId() == null) {
-            throw new IllegalArgumentException();
-        }
-        saveOrUpdate(product);
-    }
 
     @TransactionAttribute
     @Override

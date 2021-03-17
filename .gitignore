@@ -1,4 +1,4 @@
 .idea/*
 *.iml
-*/datasource.sli
+**/datasource.sli
 */target

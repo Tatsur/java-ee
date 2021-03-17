@@ -5,6 +5,7 @@ import ru.geekbrains.persist.Category;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
@@ -18,6 +19,8 @@ public class CategoryController implements Serializable {
 
     private Category category;
 
+    private List<Category> categories;
+
     public Category getCategory() {
         return category;
     }
@@ -26,14 +29,24 @@ public class CategoryController implements Serializable {
         this.category = category;
     }
 
+    public void preloadData(ComponentSystemEvent componentSystemEvent) {
+
+        categories = categoryRepository.findAllCategories();
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
+
     public String createCategory() {
         this.category = new Category();
         return "/category_form.xhtml?faces-redirect=true";
     }
 
-    public List<Category> getAllCategories() {
-        return categoryRepository.findAllCategories();
-    }
 
     public String editCategory(Category category) {
         this.category = category;
