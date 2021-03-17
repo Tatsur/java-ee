@@ -55,6 +55,14 @@ public class ProductRepository {
                 .getSingleResult();
     }
 
+    public List<Product> findByCategoryId(Long id){
+        return em.createNamedQuery("findByCategoryId", Product.class).setParameter("id",id).getResultList();
+    }
+
+    public List<Product> findByName(String name) {
+        return em.createNamedQuery("findByName", Product.class).setParameter("name",name).getResultList();
+    }
+
     public void saveOrUpdate(Product product) {
         if (product.getId() == null) {
             em.persist(product);

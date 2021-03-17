@@ -6,6 +6,7 @@ import ru.geekbrains.persist.Category;
 import ru.geekbrains.persist.CategoryRepository;
 import ru.geekbrains.persist.Product;
 import ru.geekbrains.persist.ProductRepository;
+import ru.geekbrains.rest.ProductServiceRest;
 
 import javax.ejb.EJB;
 import javax.ejb.Remote;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 
 @Stateless
 @Remote(ProductServiceRemote.class)
-public class ProductServiceImpl implements ProductService,ProductServiceRemote {
+public class ProductServiceImpl implements ProductService, ProductServiceRemote, ProductServiceRest {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
@@ -57,12 +58,42 @@ public class ProductServiceImpl implements ProductService,ProductServiceRemote {
         }
         return null;
     }
+
+    @Override
+    public List<ProductRepr> findByName(String name) {
+       return productRepository.findByName(name).stream()
+                .map(this::buildProductRepr)
+                .collect(Collectors.toList());
+    }
+
     @Override
     public Long countAll() {
         return productRepository.countAll();
     }
 
 
+    @Override
+    public void insert(ProductRepr product) {
+        if (product.getId() != null) {
+            throw new IllegalArgumentException();
+        }
+        saveOrUpdate(product);
+    }
+
+    @Override
+    public void update(ProductRepr product) {
+        if (product.getId() == null) {
+            throw new IllegalArgumentException();
+        }
+        saveOrUpdate(product);
+    }
+
+    @Override
+    public List<ProductRepr> findByCategoryId(Long id) {
+        return productRepository.findByCategoryId(id).stream()
+                .map(this::buildProductRepr)
+                .collect(Collectors.toList());
+    }
 
     @TransactionAttribute
     @Override
