@@ -5,12 +5,12 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
-    <ui:include src="header.xhtml"><ui:param name="title" value="User form"/></ui:include>
+    <ui:include src="../WEB-INF/fragments/header.xhtml"><ui:param name="title" value="User form"/></ui:include>
 </h:head>
 
 <h:body>
 
-    <ui:include src="navigation.xhtml"/>
+    <ui:include src="../WEB-INF/fragments/navigation.xhtml"/>
 
     <div class="container position-absolute">
         <div class="row py-2">
@@ -19,27 +19,25 @@
                     <input type="hidden" id="id" name="id"/>
                     <div class="form-group">
                         <label>Email</label>
-                        <h:inputText styleClass="form-control" id="email"
-                                     value="#{userController.user.email}"
-                                     placeholder="Enter name"/>
+                        <h:inputText styleClass="form-control" id="login"
+                                     value="#{userController.user.login}"
+                                     placeholder="Enter email"/>
                     </div>
                     <div class="form-group">
                         <label>Password</label>
                         <h:inputSecret styleClass="form-control" id="password"
                                      value="#{userController.user.password}"
-                                     placeholder="Enter description"/>
+                                     placeholder="Enter password"/>
                     </div>
                     <div class="form-group">
-                        <label>First Name</label>
-                        <h:inputText styleClass="form-control" id="firstname"
-                                       value="#{userController.user.firstname}"
-                                       placeholder="Enter description"/>
-                    </div>
-                    <div class="form-group">
-                        <label>Last Name</label>
-                        <h:inputText styleClass="form-control" id="lastname"
-                                       value="#{userController.user.lastname}"
-                                       placeholder="Enter description"/>
+                        <label>Roles</label>
+                        <h:selectManyListbox styleClass="form-control" id="productCategory"
+                                            value="#{userController.user.roles}">
+                            <f:selectItems value="#{roleController.allRoles}"
+                                           var="role"
+                                           itemValue="#{role.id}"
+                                           itemLabel="#{role.name}"/>
+                        </h:selectManyListbox>
                     </div>
                     <h:commandButton value="Submit" styleClass="btn btn-primary"
                                      action="#{userController.saveUser()}"/>
@@ -48,7 +46,7 @@
         </div>
     </div>
 
-    <ui:include src="js.xhtml"/>
+    <ui:include src="../WEB-INF/fragments/js.xhtml"/>
 
 </h:body>
 

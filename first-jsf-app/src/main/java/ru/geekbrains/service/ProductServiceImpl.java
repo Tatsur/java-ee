@@ -12,10 +12,12 @@ import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
+import javax.jws.WebService;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Stateless
+@WebService(endpointInterface = "ru.geekbrains.service.ProductServiceWs", serviceName = "ProductService")
 @Remote(ProductServiceRemote.class)
 public class ProductServiceImpl implements ProductService, ProductServiceRemote, ProductServiceRest {
 
@@ -26,7 +28,6 @@ public class ProductServiceImpl implements ProductService, ProductServiceRemote,
 
     @EJB
     private CategoryRepository categoryRepository;
-
 
 
     private ProductRepr buildProductRepr(Product product) {
@@ -61,7 +62,7 @@ public class ProductServiceImpl implements ProductService, ProductServiceRemote,
 
     @Override
     public List<ProductRepr> findByName(String name) {
-       return productRepository.findByName(name).stream()
+        return productRepository.findByName(name).stream()
                 .map(this::buildProductRepr)
                 .collect(Collectors.toList());
     }
@@ -98,7 +99,7 @@ public class ProductServiceImpl implements ProductService, ProductServiceRemote,
     @TransactionAttribute
     @Override
     public void saveOrUpdate(ProductRepr product) {
-        logger.info("Saving product with id {}" , product.getId());
+        logger.info("Saving product with id {}", product.getId());
 
         Category category = null;
         if (product.getCategoryId() != null) {

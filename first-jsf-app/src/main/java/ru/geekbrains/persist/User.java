@@ -1,34 +1,56 @@
 package ru.geekbrains.persist;
 
-public class User {
+import ru.geekbrains.service.UserRepr;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Table(name = "users")
+public class User implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String email;
-
+    @Column(name = "login",unique = true, nullable = false)
+    private String login;
+    @Column(name = "password", nullable = false)
     private String password;
 
-    private String firstname;
-
-    private String lastname;
-
-    public User(Long id, String email, String password, String firstname, String lastname) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
-        this.firstname = firstname;
-        this.lastname = lastname;
-    }
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn (name = "role_id")
+    )
+    private Set<Role> roles;
 
     public User() {
-
     }
 
-    public String getEmail() {
-        return email;
+    public User(Long id, String login, String password) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public User(UserRepr userRepr){
+        this.id = userRepr.getId();
+        this.login = userRepr.getLogin();
+        this.password = userRepr.getPassword();
+        this.roles  = new HashSet<>();
+        userRepr.getRoles().forEach(r -> roles.add(new Role(r)));
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getPassword() {
@@ -39,27 +61,19 @@ public class User {
         this.password = password;
     }
 
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

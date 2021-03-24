@@ -10,8 +10,8 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>14</maven.compiler.source>
-        <maven.compiler.target>14</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
     <modules>
@@ -19,5 +19,6 @@
         <module>product-service-api</module>
         <module>first-jsf-app</module>
         <module>remote-client</module>
+        <module>ws-client</module>
     </modules>
 </project>

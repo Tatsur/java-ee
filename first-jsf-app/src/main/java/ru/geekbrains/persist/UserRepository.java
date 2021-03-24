@@ -1,49 +1,71 @@
 package ru.geekbrains.persist;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicLong;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@Named
-@ApplicationScoped
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Root;
+import java.util.List;
+
+@Stateless
 public class UserRepository {
 
-    private final Map<Long, User> userMap = new ConcurrentHashMap<>();
+    private  final Logger logger = LoggerFactory.getLogger(UserRepository.class);
 
-    private final AtomicLong identity = new AtomicLong(0);
+    @PersistenceContext(unitName = "ds")
+    protected EntityManager em;
 
-    @PostConstruct
-    public void init() {
-        this.saveOrUpdate(new User(null,"user1@mail.com", "user1",
-                "John", "Doe"));
-        this.saveOrUpdate(new User(null,"user2@mail.com", "user2",
-                "John2", "Doe2"));
-        this.saveOrUpdate(new User(null,"user3@mail.com", "user3",
-                "John3", "Doe3"));
-    }
-
-    public List<User> findAll() {
-        return new ArrayList<>(userMap.values());
+    public UserRepository() {
     }
 
     public User findById(Long id) {
-        return userMap.get(id);
+        return em.find(User.class, id);
     }
 
-    public void saveOrUpdate(User user) {
-        if (user.getId() == null) {
-            Long id = identity.incrementAndGet();
-            user.setId(id);
+    public boolean existsById(Long id) {
+        return findById(id) != null;
+    }
+
+    @TransactionAttribute
+    public User saveOrUpdate(User user) {
+        if (user.getId() == 0) {
+            em.persist(user);
+            return user;
         }
-        userMap.put(user.getId(), user);
+        return em.merge(user);
+    }
+    @TransactionAttribute
+    public void deleteById(Long id) {
+        logger.info("Deleting user");
+        try {
+            User attached = findById(id);
+            if (attached != null) {
+                em.remove(attached);
+            }
+        } catch (Exception ex) {
+            logger.error("Error with entity class", ex);
+            throw new IllegalStateException(ex);
+        }
     }
 
-    public void deleteById(Long id) {
-        userMap.remove(id);
+    @TransactionAttribute
+    public List<User> getAllUsers() {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<User> query = cb.createQuery(User.class);
+        Root<User> from = query.from(User.class);
+        from.fetch("roles", JoinType.LEFT);
+        query.select(from).distinct(true);
+        return em.createQuery(query).getResultList();
+    }
+
+    public long getCount() {
+        return em.createQuery("select count(*) from User", Long.class)
+                .getSingleResult();
     }
 }

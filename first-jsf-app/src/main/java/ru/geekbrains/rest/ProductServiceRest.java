@@ -23,6 +23,7 @@ public interface ProductServiceRest extends ServiceRest<ProductRepr> {
 
     @DELETE
     @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
     void deleteById(@PathParam("id") Long id);
 
     @GET
