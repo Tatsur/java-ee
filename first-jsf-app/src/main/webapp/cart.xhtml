@@ -5,12 +5,14 @@
       xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-    <ui:include src="header.xhtml"><ui:param name="title" value="Cart list"/></ui:include>
+    <ui:include src="/WEB-INF/fragments/header.xhtml"><ui:param name="title" value="Cart list"/></ui:include>
 </h:head>
 
 <h:body>
 
-    <ui:include src="navigation.xhtml"/>
+    <ui:include src="/WEB-INF/fragments/navigation.xhtml">
+        <ui:param name="pageName" value="Cart"/>
+    </ui:include>
 
     <div class="container">
         <div class="row py-2">
@@ -52,7 +54,7 @@
         </div>
     </div>
 
-    <ui:include src="js.xhtml"/>
+    <ui:include src="/WEB-INF/fragments/js.xhtml"/>
 </h:body>
 
 </html>

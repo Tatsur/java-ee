@@ -4,12 +4,14 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
-    <ui:include src="header.xhtml"><ui:param name="title" value="Users list"/></ui:include>
+    <ui:include src="../WEB-INF/fragments/header.xhtml"><ui:param name="title" value="Users list"/></ui:include>
 </h:head>
 
 <h:body>
 
-    <ui:include src="navigation.xhtml"/>
+    <ui:include src="../WEB-INF/fragments/navigation.xhtml">
+        <ui:param name="pageName" value="User"/>
+    </ui:include>
 
     <div class="container">
         <div class="row py-2">
@@ -27,20 +29,16 @@
                             #{user.id}
                         </h:column>
                         <h:column>
+                            <f:facet name="header">Roles</f:facet>
+                            #{user.roles}
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">email</f:facet>
-                            #{user.email}
+                            #{user.login}
                         </h:column>
                         <h:column>
                             <f:facet name="header">password</f:facet>
                             #{user.password}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">First Name</f:facet>
-                            #{user.firstname}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">First Name</f:facet>
-                            #{user.lastname}
                         </h:column>
                         <h:column>
                             <f:facet name="header">Actions</f:facet>
@@ -60,7 +58,7 @@
         </div>
     </div>
 
-    <ui:include src="js.xhtml"/>
+    <ui:include src="../WEB-INF/fragments/js.xhtml"/>
 </h:body>
 
 </html>

@@ -8,7 +8,9 @@ import ru.geekbrains.service.ProductService;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ComponentSystemEvent;
+import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 import java.util.List;
 
@@ -21,6 +23,9 @@ public class ProductController implements Serializable {
 
     @EJB
     private CategoryRepository categoryRepository;
+
+    @Inject
+    private HttpSession httpSession;
 
     private ProductRepr product;
 
@@ -69,6 +74,11 @@ public class ProductController implements Serializable {
 
     public String saveProduct() {
         productService.saveOrUpdate(product);
+        return "/product.xhtml?faces-redirect=true";
+    }
+
+    public String logout(){
+        httpSession.invalidate();
         return "/product.xhtml?faces-redirect=true";
     }
 }

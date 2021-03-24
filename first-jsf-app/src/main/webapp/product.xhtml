@@ -5,19 +5,21 @@
       xmlns:pf="http://primefaces.org/ui">
 
 <h:head>
-    <ui:include src="header.xhtml"><ui:param name="title" value="Product list"/></ui:include>
+    <ui:include src="/WEB-INF/fragments/header.xhtml"><ui:param name="title" value="Product list"/></ui:include>
 </h:head>
 
 <h:body>
     <f:event listener="#{productController.preloadData}" type="preRenderView"/>
-
-    <ui:include src="navigation.xhtml"/>
+    <ui:param name="role" value="#{request.isUserInRole('ADMIN')}"/>
+    <ui:include src="/WEB-INF/fragments/navigation.xhtml">
+        <ui:param name="pageName" value="Product"/>
+    </ui:include>
 
     <div class="container">
         <div class="row py-2">
             <h:form id="productForm">
                 <div class="col-12">
-                    <h:commandButton value="Add Product" styleClass="btn btn-primary"
+                    <h:commandButton rendered="#{role}" value="Add Product" styleClass="btn btn-primary"
                                      action="#{productController.createProduct()}"/>
                 </div>
 
@@ -47,10 +49,10 @@
                         <h:column>
                             <f:facet name="header">Actions</f:facet>
 
-                            <pf:commandButton styleClass="btn btn-success"
+                            <pf:commandButton rendered="#{role}" styleClass="btn btn-success"
                                               icon="fas fa-edit"
                                               action="#{productController.editProduct(product)}"/>
-                            <pf:commandButton styleClass="btn btn-danger"
+                            <pf:commandButton rendered="#{role}" styleClass="btn btn-danger"
                                               icon="far fa-trash-alt"
                                               action="#{productController.deleteProduct(product)}">
                                 <f:ajax event="click" render="productForm"/>
@@ -69,7 +71,7 @@
         </div>
     </div>
 
-    <ui:include src="js.xhtml"/>
+    <ui:include src="/WEB-INF/fragments/js.xhtml"/>
 </h:body>
 
 </html>
